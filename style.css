@@ -417,6 +417,21 @@ ul>li>a {
     /* Force the icon itself to be black/dark for contrast */
 }
 
+/* --- FIX FOR SVG IMAGES (Python, C, Java) --- */
+.icon-box img {
+    width: 60px;
+    /* Match the size of the font icons */
+    height: 60px;
+    transition: all 0.3s ease;
+    /* No grayscale filter needed - SVGs are naturally colorful */
+}
+
+/* Hover Effect for Images (Same as Icons) */
+.icon-box:hover img {
+    transform: scale(1.2) translateY(-10px);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+}
+
 /* Optional: When you hover, remove the white background if you want, 
    OR keep it so it stays visible. Let's keep it clean: */
 .icon-box:hover .devicon-eclipse-plain {
@@ -425,23 +440,24 @@ ul>li>a {
     opacity: 1;
 }
 
-/* The Logos */
+/* The Logos (Now always colorful) */
 .icon-box i {
     font-size: 3.5rem;
-    /* Big icons */
     transition: all 0.3s ease;
-    filter: grayscale(100%);
-    /* Start Black & White */
-    opacity: 0.8;
+
+    /* CHANGED: Removed grayscale, set opacity to 1 */
+    filter: grayscale(0%);
+    opacity: 1;
 }
 
 /* HOVER EFFECT: Colorize & Scale */
 .icon-box:hover i {
-    filter: grayscale(0%);
-    /* Show real colors */
-    opacity: 1;
+    /* No need to change filter here anymore */
     transform: scale(1.2) translateY(-10px);
-    /* Pop up */
+    /* Just the pop-up animation */
+
+    /* Optional: Add a subtle glow on hover */
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
 }
 
 /* --- TOOLTIP (Hidden Text) --- */
