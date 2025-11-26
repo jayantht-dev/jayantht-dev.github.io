@@ -1,7 +1,6 @@
 # 👨‍💻 Jayanth T - Professional Portfolio
 
 ![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fjayantht-dev.github.io&label=Live%20Status&style=for-the-badge)
-![Top Language](https://img.shields.io/github/languages/top/jayantht-dev/jayantht-dev.github.io?style=for-the-badge&color=blue)
 
 Welcome to my personal portfolio repository! This website is designed to showcase my skills, projects, and experience as an aspiring Software Engineer. It features a modern **Glassmorphism** aesthetic with a fully responsive layout.
 
