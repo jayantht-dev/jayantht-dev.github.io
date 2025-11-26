@@ -1,0 +1,1283 @@
+* {
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-image: url("./assets/main_bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #e2e8f0;
+    margin: 0;
+    position: relative;
+}
+
+nav {
+    background-color: rgba(15, 23, 42, 0.6);
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    position: fixed;
+    z-index: 1000;
+    overflow: hidden;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+    /* Made shadow smoother */
+}
+
+nav::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* This puts this layer BEHIND the links/logo but ABOVE the scrolling text */
+    z-index: -1;
+
+    /* MUST match the body background exactly */
+    background-image: url("./assets/main_bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    /* This aligns it with the body */
+
+    /* Adds the blur effect to the background image inside the nav */
+    filter: blur(10px);
+}
+
+#pf {
+    text-transform: uppercase;
+}
+
+nav>ul {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 25px;
+    list-style: none;
+
+}
+
+ul>li>a {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: #e2e8f0;
+    font-size: 17px;
+    transition: all ease-in-out;
+}
+
+/* --- HAMBURGER ICON STYLES --- */
+.hamburger {
+    display: none;
+    /* Hidden on laptop, visible on mobile */
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+}
+
+#about {
+    min-height: 100vh;
+    background-color: transparent;
+    display: flex;
+
+    /* Increased from 50px to 120px to clear the navbar */
+    padding-top: 120px;
+
+    position: relative;
+}
+
+.link-hover:hover {
+    transform: scale(1.2);
+}
+
+#skills {
+    min-height: 100vh;
+    background-color: transparent;
+}
+
+#projects {
+    min-height: 100vh;
+    background-color: transparent;
+}
+
+#exp {
+    min-height: 100vh;
+    background-color: transparent;
+}
+
+#contact {
+    min-height: 100vh;
+    background-color: transparent;
+}
+
+/* --- GLOBAL SECTION DIVIDER --- */
+/* Target all main sections */
+#about,
+#skills,
+#proj,
+#exp {
+    position: relative;
+    /* Needed for the absolute line */
+    padding-bottom: 80px;
+    /* Make space for the line */
+}
+
+/* The Glowing Line */
+#about::after,
+#skills::after,
+#proj::after,
+#exp::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    /* Start at middle */
+    transform: translateX(-50%);
+    /* Shift back to center perfectly */
+
+    width: 80%;
+    /* Width for Mobile */
+    max-width: 800px;
+    /* Cap width for Laptop so it doesn't stretch too far */
+
+    height: 1px;
+    /* Transparent -> Blue -> Transparent Gradient */
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.5), transparent);
+}
+
+.about-left,
+.about-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.about-summary {
+    max-width: 650px;
+    padding: 0 40px;
+    color: #e2e8f0;
+}
+
+.greeting {
+    font-size: 1.6rem;
+    color: #38bdf8;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.about-summary h1 {
+    font-size: 3.2rem;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.role {
+    font-size: 1.7rem;
+    color: #94a3b8;
+    /* Muted grey for role */
+    margin-bottom: 20px;
+}
+
+.about-summary p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #cbd5e1;
+    letter-spacing: 1.2px;
+}
+
+/* Highlight keywords like Java/C# in the text */
+.about-summary strong {
+    color: #38bdf8;
+}
+
+/* --- PROFILE PICTURE CONTAINER --- */
+.profile-container {
+    position: relative;
+    /* Allows images to sit on top of each other */
+    width: 380px;
+    /* Must match the image size */
+    height: 380px;
+    cursor: pointer;
+    /* Shows hand icon on hover */
+}
+
+/* Common Styles for BOTH images */
+.profile-pic {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    /* Circle shape */
+    border: 4px solid #38bdf8;
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+
+    position: absolute;
+    /* Stacks them */
+    top: 0;
+    left: 0;
+
+    /* Smooth animation for zoom and fade */
+    transition: all 0.5s ease-in-out;
+}
+
+/* --- IMAGE 1 (Default) --- */
+.main-img {
+    opacity: 1;
+    /* Visible */
+    z-index: 2;
+    /* Sits on top */
+}
+
+/* --- IMAGE 2 (Hidden) --- */
+.hover-img {
+    opacity: 0;
+    /* Invisible */
+    z-index: 1;
+    /* Sits behind */
+    transform: scale(0.9);
+    /* Start slightly smaller */
+}
+
+/* --- THE HOVER ACTION --- */
+.profile-container:hover .main-img {
+    opacity: 0;
+    /* Fade out the main image */
+    transform: scale(1.1);
+    /* Zoom in */
+}
+
+.profile-container:hover .hover-img {
+    opacity: 1;
+    /* Fade in the second image */
+    transform: scale(1.1);
+    /* Zoom in to match */
+    z-index: 3;
+    /* Bring to front */
+}
+
+/* --- BUTTONS --- */
+.about-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.3s;
+}
+
+.btn.primary {
+    background-color: #38bdf8;
+    color: #0f172a;
+    /* Dark text on blue button */
+}
+
+.btn.secondary {
+    border: 2px solid #38bdf8;
+    color: #38bdf8;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    /* Little hop on hover */
+}
+
+/* --- SKILLS SECTION LAYOUT --- */
+#skills {
+    min-height: 100vh;
+    /* Full height */
+    padding: 100px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.skills-container {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 50px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    width: 60px;
+    height: 4px;
+    background: #38bdf8;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* --- NEW ICON GRID SYSTEM --- */
+.skills-grid-icons {
+    display: grid;
+    /* Two columns on laptop, stacks to 1 on mobile */
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* --- THE CARD (Glassmorphism) --- */
+.skill-category-card {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.skill-category-card:hover {
+    transform: translateY(-5px);
+    border-color: #38bdf8;
+    /* Blue glow border */
+}
+
+.skill-category-card h3 {
+    color: white;
+    margin-bottom: 25px;
+    font-size: 1.4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+/* --- ICON ROW LAYOUT --- */
+.icon-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+/* Individual Icon Box */
+.icon-box {
+    position: relative;
+    cursor: pointer;
+    /* Ensure icon area is big enough */
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- FIX FOR ECLIPSE ICON VISIBILITY --- */
+/* This targets ONLY the Eclipse icon */
+.devicon-eclipse-plain {
+    background: rgba(255, 255, 255, 0.9);
+    /* White background circle */
+    border-radius: 50%;
+    /* Make it round */
+    padding: 1px;
+    /* Add some space inside */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    /* Add a glow */
+    color: #000 !important;
+    /* Force the icon itself to be black/dark for contrast */
+}
+
+/* Optional: When you hover, remove the white background if you want, 
+   OR keep it so it stays visible. Let's keep it clean: */
+.icon-box:hover .devicon-eclipse-plain {
+    background: white;
+    /* Keep white background on hover */
+    opacity: 1;
+}
+
+/* The Logos */
+.icon-box i {
+    font-size: 3.5rem;
+    /* Big icons */
+    transition: all 0.3s ease;
+    filter: grayscale(100%);
+    /* Start Black & White */
+    opacity: 0.8;
+}
+
+/* HOVER EFFECT: Colorize & Scale */
+.icon-box:hover i {
+    filter: grayscale(0%);
+    /* Show real colors */
+    opacity: 1;
+    transform: scale(1.2) translateY(-10px);
+    /* Pop up */
+}
+
+/* --- TOOLTIP (Hidden Text) --- */
+.tooltip {
+    position: absolute;
+    bottom: -35px;
+    /* Position below icon */
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: #38bdf8;
+    color: #0f172a;
+    /* Dark text */
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    white-space: nowrap;
+
+    opacity: 0;
+    /* Hidden initially */
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Triangle for tooltip */
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #38bdf8 transparent;
+}
+
+.icon-box:hover .tooltip {
+    opacity: 1;
+    /* Show on hover */
+    visibility: visible;
+    bottom: -45px;
+    /* Slight movement down */
+}
+
+/* --- TEXT LIST (For Core Concepts) --- */
+.concept-list {
+    list-style: none;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.concept-list li {
+    font-size: 1.1rem;
+    color: #e2e8f0;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.concept-list i {
+    color: #38bdf8;
+    margin-right: 12px;
+    font-size: 1.1rem;
+}
+
+/* =========================================
+   MOBILE RESPONSIVENESS FIX
+   ========================================= */
+@media (max-width: 768px) {
+
+    /* 1. Force sections to let text grow freely */
+    #about,
+    #skills,
+    #proj,
+    #exp,
+    #edu,
+    #cert,
+    #contact {
+        height: auto;
+        /* CRITICAL: Stops the crashing/overlapping */
+        min-height: 100vh;
+        padding-bottom: 60px;
+        /* Adds safety space at the bottom */
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    /* 2. About Section Specifics */
+    #about {
+        flex-direction: column-reverse;
+        /* Image on top, text on bottom */
+        padding-top: 100px;
+        /* Clear the navbar */
+        gap: 30px;
+        /* Space between image and text */
+    }
+
+    /* 3. Adjust Font Sizes so they don't dominate the screen */
+    .about-summary h1 {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    .about-summary p {
+        font-size: 1rem;
+        text-align: center;
+        padding: 0 15px;
+        /* Prevent text touching screen edges */
+    }
+
+    /* 4. Center the buttons */
+    .about-buttons {
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    /* 5. Fix the Skills Title overlapping */
+    .section-title {
+        font-size: 1.8rem;
+        margin-top: 40px;
+        /* Pushes the title down away from previous text */
+        display: block;
+        text-align: center;
+    }
+
+    /* SKILLS MOBILE FIX */
+    .skills-grid-icons {
+        grid-template-columns: 1fr;
+        /* Stack cards vertically */
+        padding: 0 10px;
+    }
+
+    .icon-box i {
+        font-size: 3rem;
+        /* Slightly smaller on phone */
+        filter: grayscale(0%);
+        /* Always colorful on phone (no hover needed) */
+        opacity: 1;
+    }
+
+    #about::after,
+    #skills::after,
+    #proj::after,
+    #exp::after,
+    #edu::after,
+    #cert::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        /* Place it at the very bottom of the section */
+        left: 10%;
+        /* Start 10% from the left */
+        width: 80%;
+        /* Make it occupy the middle 80% of the screen */
+        height: 1px;
+        /* Very thin line */
+
+        /* THE GLOWING GRADIENT: Fades from transparent to Blue to transparent */
+        background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.5), transparent);
+    }
+
+    /* --- 1. NAVBAR TRANSFORM --- */
+    .hamburger {
+        display: block;
+        /* Show the 3 lines */
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    /* Hide middle line */
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    nav>ul {
+        position: fixed;
+        /* Stick it to the screen */
+        left: -100%;
+        /* Hide it off-screen to the left initially */
+        top: 10vh;
+        /* Start below the navbar */
+        flex-direction: column;
+        /* Stack links vertically */
+        background-color: rgba(15, 23, 42, 0.95);
+        /* Solid dark background */
+        width: 100%;
+        height: 90vh;
+        /* Take up rest of screen */
+        text-align: center;
+        transition: 0.3s;
+        transform: none;
+        /* Reset the center transform from desktop */
+        padding-top: 50px;
+    }
+
+    nav>ul.active {
+        left: 0;
+        /* Slide it in when active */
+    }
+
+    nav>ul>li {
+        margin: 25px 0;
+        /* Space out the links */
+    }
+
+
+    /* --- 2. ABOUT/HERO SECTION TRANSFORM --- */
+    #about {
+        flex-direction: column-reverse;
+        /* Stack: Image on TOP, Text on BOTTOM */
+        height: auto;
+        padding-top: 120px;
+        /* Space for navbar */
+        text-align: center;
+        padding-bottom: 50px;
+        gap: 20px;
+    }
+
+    .about-left,
+    .about-right {
+        width: 100%;
+        display: block;
+    }
+
+    /* THE CONTAINER: Acts as the solid box that pushes text down */
+    .profile-container {
+        width: 250px;
+        height: 250px;
+        position: relative;
+        /* Holds the absolute images inside */
+        display: block;
+        margin: 0 auto 40px auto;
+        /* Center horizontal + 40px margin bottom to push text away */
+    }
+
+    /* THE IMAGES: Must be absolute to stack on top of each other */
+    .profile-pic {
+        position: absolute;
+        /* Keep this absolute! */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* Remove margins here, the container handles spacing */
+    }
+
+    /* Text Adjustments */
+    .about-summary {
+        padding: 0 20px;
+        /* Add side padding so text doesn't touch edges */
+    }
+
+    .about-summary h1 {
+        font-size: 2.5rem;
+        /* Smaller name */
+    }
+
+    .role {
+        font-size: 1.2rem;
+    }
+
+    .about-buttons {
+        justify-content: center;
+        /* Center the buttons */
+        flex-wrap: wrap;
+        /* Stack buttons if screen is VERY small */
+    }
+
+    /* Inside your @media (max-width: 768px) block */
+
+    .projects-grid {
+        display: flex;
+        /* Switch to Flexbox for mobile column */
+        flex-direction: column;
+        /* Stack vertically */
+        gap: 30px;
+        padding: 0 20px;
+    }
+
+    .project-card {
+        width: 100%;
+        /* Full width */
+        min-width: auto;
+    }
+
+    .social-links {
+        justify-content: center;
+        /* Center icons on mobile */
+    }
+}
+
+/* --- PROJECTS SECTION --- */
+#proj {
+    min-height: 100vh;
+    padding: 100px 20px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.projects-container {
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* --- NEW HORIZONTAL SCROLL LAYOUT --- */
+.projects-grid {
+    display: grid;
+    /* Laptop: Fits as many cards as possible (min 300px each) */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+    width: 100%;
+}
+
+/* --- CARD STYLING --- */
+.project-card {
+    /* No fixed width anymore - let them fill the grid */
+    width: 100%;
+
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 4px solid #38bdf8;
+    border-radius: 15px;
+
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    position: relative;
+    /* Needed for z-index zooming */
+
+    /* Default State */
+    opacity: 0.9;
+}
+
+/* --- THE "ACTIVE" (ZOOMED) STATE --- */
+/* This class will be added by JavaScript when you click */
+.project-card.active {
+    opacity: 1;
+    transform: scale(1.05);
+    /* Slight Zoom */
+    z-index: 10;
+    /* Pop OVER the other cards */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    border-color: #38bdf8;
+    background: rgba(30, 41, 59, 1);
+    /* Solid background to cover cards behind it */
+}
+
+/* Hover Effect (For desktop users who don't click) */
+.project-card:hover {
+    transform: translateY(-5px);
+    border-color: #60a5fa;
+}
+
+/* --- CARD CONTENT --- */
+.card-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /* Pushes button to bottom */
+}
+
+.card-content h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+/* The "Pills" for skills */
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.tech-stack span {
+    background: rgba(56, 189, 248, 0.1);
+    /* Very faint blue bg */
+    color: #38bdf8;
+    /* Bright blue text */
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.card-content p {
+    font-size: 1rem;
+    color: #cbd5e1;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    flex-grow: 1;
+    /* Ensures buttons align at bottom */
+}
+
+/* --- ACTIONS / BUTTONS --- */
+.card-actions {
+    margin-top: auto;
+    /* Force button to the very bottom */
+}
+
+.btn-code {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background-color: transparent;
+    border: 1px solid #38bdf8;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.btn-code:hover {
+    background-color: #38bdf8;
+    color: #0f172a;
+}
+
+.research-badge {
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 0.9rem;
+    border: 1px solid #475569;
+    padding: 8px 16px;
+    border-radius: 5px;
+}
+
+/*-----------------------------------------------------*/
+/*Experience section*/
+
+/* --- EXPERIENCE SECTION --- */
+#exp {
+    min-height: 80vh;
+    /* Takes up most of the screen */
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+}
+
+.exp-container {
+    max-width: 800px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+/* The Vertical Line */
+.timeline {
+    position: relative;
+    border-left: 2px solid rgba(56, 189, 248, 0.3);
+    /* Faint blue line */
+    margin-left: 20px;
+    padding-left: 30px;
+    /* Space between line and text */
+}
+
+.timeline-item {
+    margin-bottom: 50px;
+    position: relative;
+}
+
+/* The Glowing Dot on the line */
+.timeline-dot {
+    position: absolute;
+    left: -36px;
+    /* Positions dot perfectly on the line */
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    background-color: #38bdf8;
+    /* Bright Blue */
+    border-radius: 50%;
+    box-shadow: 0 0 10px #38bdf8;
+    /* Glowing effect */
+}
+
+/* The Content Box */
+.timeline-content {
+    background: rgba(30, 41, 59, 0.6);
+    /* Glass effect */
+    backdrop-filter: blur(5px);
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s;
+}
+
+.timeline-content:hover {
+    transform: translateX(10px);
+    /* Slides slightly right on hover */
+    border-color: #38bdf8;
+}
+
+.timeline-content h3 {
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+}
+
+.timeline-content .role {
+    display: block;
+    color: #38bdf8;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.timeline-content .description {
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+/* --- EDUCATION SECTION --- */
+#edu {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+    padding-bottom: 80px;
+    /* Space for the divider line */
+    position: relative;
+}
+
+/* Reusing the Experience Container Width */
+.edu-container {
+    max-width: 800px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+/* Specific styling for Education Text */
+.timeline-content .date {
+    display: inline-block;
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    padding: 4px 10px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.timeline-content .school {
+    font-size: 1.1rem;
+    color: white;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.timeline-content .grade {
+    color: #94a3b8;
+    /* Muted grey */
+    font-style: italic;
+}
+
+/* The Global Divider Line for Education */
+#edu::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 800px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.5), transparent);
+}
+
+/*-----------------------------------------------------*/
+/*Contact section*/
+
+/* --- CONTACT SECTION --- */
+#contact {
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 20px;
+}
+
+.contact-container {
+    max-width: 1000px;
+    width: 100%;
+}
+
+.contact-wrapper {
+    display: flex;
+    gap: 50px;
+    background: rgba(30, 41, 59, 0.6);
+    /* Glass Dark Blue */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Left Side: Info --- */
+.contact-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contact-info h3 {
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.contact-desc {
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #e2e8f0;
+}
+
+.info-item .icon {
+    margin-right: 15px;
+    font-size: 1.5rem;
+}
+
+.info-item a {
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.info-item a:hover {
+    color: #38bdf8;
+}
+
+/* Social Buttons */
+.social-links {
+    margin-top: 25px;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start;
+    /* Aligns left */
+}
+
+.social-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border: 2px solid #38bdf8;
+    border-radius: 50%;
+    /* Makes it a perfect circle */
+    font-size: 1.5rem;
+    color: #38bdf8;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect: Fills with blue and glows */
+.social-icon:hover {
+    background-color: #38bdf8;
+    color: #0f172a;
+    /* Dark icon on light background */
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+    /* Glowing Ring */
+    transform: translateY(-5px);
+    /* Bounces up slightly */
+}
+
+/* --- Right Side: Form --- */
+.contact-form {
+    flex: 1;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Styling the inputs to look like glass */
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #38bdf8;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-submit {
+    background: #38bdf8;
+    color: #0f172a;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    width: 100%;
+}
+
+.btn-submit:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(56, 189, 248, 0.3);
+}
+
+/* --- FOOTER --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.9);
+    color: #94a3b8;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- CERTIFICATIONS SECTION --- */
+#cert {
+    min-height: 80vh;
+    /* Fits nicely on screen */
+    padding: 100px 20px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding-bottom: 80px;
+    /* Space for the divider line */
+}
+
+/* The Divider Line (Same as others) */
+#cert::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 800px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.5), transparent);
+}
+
+.cert-container {
+    max-width: 1200px;
+    width: 100%;
+}
+
+.cert-grid {
+    display: grid;
+    /* 3 columns on desktop, auto-stack on mobile */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+/* --- THE CERT CARD --- */
+.cert-card {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    /* Center everything like a badge */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+
+    /* Make it look official with a gold/yellow top border */
+    border-top: 4px solid #fbbf24;
+}
+
+.cert-card:hover {
+    transform: translateY(-10px);
+    border-color: #fbbf24;
+    /* Glows Gold on hover */
+    box-shadow: 0 10px 30px rgba(251, 191, 36, 0.1);
+}
+
+.cert-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.05);
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    border-radius: 50%;
+}
+
+.cert-card h3 {
+    font-size: 1.3rem;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.issuer {
+    display: block;
+    font-size: 0.95rem;
+    color: #fbbf24;
+    /* Gold color for the company name */
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cert-card p {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
