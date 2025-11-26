@@ -14,6 +14,13 @@ body {
     color: #e2e8f0;
     margin: 0;
     position: relative;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+html {
+    overflow-x: hidden;
+    /* Double safety */
 }
 
 nav {
@@ -430,6 +437,8 @@ ul>li>a {
 .icon-box:hover img {
     transform: scale(1.2) translateY(-10px);
     filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+    z-index: 100;
+    position: relative;
 }
 
 /* Optional: When you hover, remove the white background if you want, 
@@ -736,6 +745,40 @@ ul>li>a {
         /* Stack buttons if screen is VERY small */
     }
 
+    /* 1. FIX THE OVERLAP (Z-Index War) */
+    .icon-box {
+        position: relative;
+        z-index: 1;
+        /* Default layer */
+    }
+
+    /* When you touch/hover an icon, move it to the SKY HIGH layer (1000) */
+    .icon-box:hover,
+    .icon-box:active,
+    .icon-box:focus {
+        z-index: 1000 !important;
+    }
+
+    /* 2. FIX THE GIANT ICONS (Size Control) */
+    /* Force Font Icons (like C, JS) to be smaller */
+    .icon-box i {
+        font-size: 3rem !important;
+        /* Reduced from 3.5rem */
+    }
+
+    /* Force Image Icons (like Python, Java) to match */
+    .icon-box img {
+        width: 45px !important;
+        height: 45px !important;
+    }
+
+    /* 3. ADD SPACE between the icon rows */
+    .icon-row {
+        gap: 20px !important;
+        /* Give them breathing room */
+        margin-bottom: 15px;
+    }
+
     /* Inside your @media (max-width: 768px) block */
 
     .projects-grid {
@@ -756,6 +799,53 @@ ul>li>a {
     .social-links {
         justify-content: center;
         /* Center icons on mobile */
+    }
+
+    /* --- FORCE MOBILE CENTERING --- */
+
+    /* 1. Center the Sections */
+    .about-left,
+    .about-right,
+    .skills-container,
+    .projects-container,
+    .contact-info,
+    .contact-wrapper {
+        text-align: center;
+        /* Centers text */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Centers flex items (images, divs) */
+        justify-content: center;
+        width: 100%;
+        /* Ensure they don't stretch wider than screen */
+    }
+
+    /* 2. Fix the Timeline (Experience/Education) Centering */
+    .timeline {
+        margin-left: 0;
+        /* Remove left margin */
+        padding-left: 20px;
+        /* Keep space for line */
+        border-left: 2px solid rgba(56, 189, 248, 0.3);
+        /* Ensure the container itself is centered */
+        margin: 0 auto;
+        max-width: 90%;
+        /* Stop it from touching edges */
+    }
+
+    /* 3. Fix the Navbar Padding on Small Phones */
+    nav {
+        padding: 0 20px;
+        /* Reduce padding if it was too big */
+        justify-content: space-between;
+        /* Ensure Logo Left, Hamburger Right */
+    }
+
+    /* 4. Fix Profile Container Width */
+    .profile-container {
+        margin: 0 auto 40px auto;
+        /* Specifically center the profile picture box */
     }
 }
 
